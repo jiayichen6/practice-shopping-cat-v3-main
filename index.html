@@ -70,12 +70,13 @@
         <section x-data="cartControl" class="px-8 mt-12">
           <div class="flex items-center">
             <h2 class="text-3xl font-bold">認養清單</h2>
-            <i class="fas fa-shopping-cart text-xl relative">
+            <div class="relative">
+              <i class="fas fa-shopping-cart text-xl"></i>
               <span
                 x-text="$store.catData.cartList.length"
-                class="absolute bottom-3 left-3 badge badge-xs badge-secondary"
+                class="absolute -top-2 -right-2 badge badge-xs badge-secondary"
               ></span>
-            </i>
+            </div>
           </div>
 
           <table class="table my-2">
