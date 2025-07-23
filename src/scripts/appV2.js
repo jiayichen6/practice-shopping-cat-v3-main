@@ -8,6 +8,7 @@ const productListControl = () => {
       try {
         const resp = await axios.get(url)
         this.$store.catData.productList = resp.data
+        console.log(1111)
       } catch (err) {
         console.log(err)
       }
@@ -26,15 +27,15 @@ const productListControl = () => {
       const url = "http://localhost:3002/cart"
 
       try {
-        const data = (await axios.get(url)).data
-        const existed = data.findIndex((c) => c.id === cat.id)
-
-        if (existed !== -1) {
-          data[existed].count++
-          axios.patch(`${url}/${cat.id}`, { count: data[existed].count })
+        if (index !== -1) {
+          axios.patch(`${url}/${cat.id}`, { count: cartList[index].count })
         } else {
           axios.post(url, { ...cat, count: 1 })
         }
+        console.log(
+          "更新完，本地資料如下",
+          JSON.stringify(this.$store.catData.cartList)
+        )
       } catch (err) {
         console.log("更新購物車失敗", err)
       }
@@ -50,6 +51,7 @@ const cartControl = () => {
       try {
         const resp = await axios.get(this.url)
         this.$store.catData.cartList = resp.data
+        console.log(1234)
       } catch (err) {
         console.log("購物車讀取失敗：", err)
       }
@@ -79,12 +81,14 @@ const cartControl = () => {
     },
 
     async resetCart() {
+      const cartId = this.$store.catData.cartList.map((c) => c.id)
+      console.log(cartId)
+
       this.$store.catData.cartList = []
 
       try {
-        const cartList = (await axios.get(this.url)).data
-        for (const cat of cartList) {
-          await axios.delete(`${this.url}/${cat.id}`)
+        for (const id of cartId) {
+          await axios.delete(`${this.url}/${id}`)
         }
       } catch (err) {
         console.log("清空購物車失敗", err)

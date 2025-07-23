@@ -36,6 +36,7 @@
         <section
           x-data="productListControl"
           x-init="getCatLlist"
+          x-cloak
           class="container px-6 py-3 mx-auto"
         >
           <p class="px-6 py-2 bg-yellow-400 rounded-full">請以認養取代購買！</p>
@@ -49,6 +50,7 @@
                   <img
                     :src="`/images/${cat.picture}`"
                     class="select-none"
+                    loading="lazy"
                     alt=""
                   />
                 </figure>
@@ -56,7 +58,10 @@
                   <h5 x-text="cat.name" class="card-title"></h5>
                   <p x-text="`$${cat.price}`"></p>
                   <div class="justify-end card-actions">
-                    <button @click="addToCart(cat)" class="btn btn-primary">
+                    <button
+                      @click.prevent="addToCart(cat)"
+                      class="btn btn-primary"
+                    >
                       <i class="fas fa-cat"></i> 認養
                     </button>
                   </div>
@@ -67,7 +72,12 @@
           </div>
         </section>
 
-        <section x-data="cartControl" x-init="getCartList" class="px-8 mt-12">
+        <section
+          x-data="cartControl"
+          x-init="getCartList"
+          x-cloak
+          class="px-8 mt-12"
+        >
           <div class="flex items-center">
             <h2 class="text-3xl font-bold">認養清單</h2>
             <div class="relative">
@@ -106,7 +116,7 @@
                   <td x-text="calcSubTotal(cat)"></td>
                   <td>
                     <button
-                      @click="removeProduct(cat)"
+                      @click.prevent="removeProduct(cat)"
                       class="btn btn-xs btn-primary"
                     >
                       <i class="fas fa-trash-alt"></i>
@@ -125,7 +135,7 @@
               </tr>
             </tfoot>
           </table>
-          <button @click="resetCart" class="btn btn-primary">
+          <button @click.prevent="resetCart" class="btn btn-primary">
             <i class="fas fa-baby-carriage"></i> 清空認養清單
           </button>
         </section>
