@@ -37,20 +37,5 @@
       "price": 12.5
     }
   ],
-  "cart": [
-    {
-      "id": "6",
-      "picture": "cat006.jpg",
-      "name": "黑臉",
-      "price": 12.5,
-      "count": 6
-    },
-    {
-      "id": "5",
-      "picture": "cat005.jpg",
-      "name": "小花",
-      "price": 9.99,
-      "count": 1
-    }
-  ]
+  "cart": []
 }

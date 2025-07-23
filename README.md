@@ -13,6 +13,7 @@
 - run `npm install` to install all packages.
 - run `npm run dev` to run a development server on your local machine (maybe port 5173).
 - run `npm run api` to run a fake API server on your local machine (port 3002).
+- or `npm run all` if you have `concurrently`(by JiaYiChen6)
 - and write all implements in `app.js`.
 
 photo credits: [unsplash](https://unsplash.com/)
