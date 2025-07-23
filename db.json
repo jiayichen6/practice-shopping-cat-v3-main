@@ -39,34 +39,11 @@
   ],
   "cart": [
     {
-      "0": {
-        "id": "3",
-        "picture": "cat003.jpg",
-        "name": "老虎",
-        "price": 10,
-        "count": 1
-      },
-      "id": "a4c7"
-    },
-    {
-      "0": {
-        "0": {
-          "id": "3",
-          "picture": "cat003.jpg",
-          "name": "老虎",
-          "price": 10,
-          "count": 1
-        },
-        "id": "a4c7"
-      },
-      "1": {
-        "id": "3",
-        "picture": "cat003.jpg",
-        "name": "老虎",
-        "price": 10,
-        "count": 1
-      },
-      "id": "c557"
+      "id": "4",
+      "picture": "cat004.jpg",
+      "name": "胖胖",
+      "price": 8.5,
+      "count": 1
     }
   ]
 }
