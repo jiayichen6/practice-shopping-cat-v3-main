@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart Practice v3</title>
+    <script type="module" src="/src/scripts/main.js"></script>
+    <link rel="stylesheet" href="/src/styles/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <main>
+        <header>
+          <nav class="shadow navbar bg-base-100">
+            <div class="flex-1">
+              <a class="text-xl btn btn-ghost"
+                ><i class="fas fa-gem"></i> 賺很大商店</a
+              >
+            </div>
+            <div class="flex-none">
+              <ul class="px-1 menu menu-horizontal">
+                <li>
+                  <a
+                    href="https://github.com/5xTraining/shopping-cat-v3"
+                    target="_blank"
+                    ><i class="fa-brands fa-github"></i> GitHub</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+
+        <section
+          x-data="productListControl"
+          x-init="getCatLlist"
+          class="container px-6 py-3 mx-auto"
+        >
+          <p class="px-6 py-2 bg-yellow-400 rounded-full">請以認養取代購買！</p>
+          <div
+            class="grid grid-cols-1 gap-3 my-2 lg:grid-cols-6 sm:grid-cols-3"
+          >
+            <!-- cat start -->
+            <template x-for="cat in $store.catData.productList">
+              <div class="shadow card bg-base-100">
+                <figure>
+                  <img
+                    :src="`/images/${cat.picture}`"
+                    class="select-none"
+                    alt=""
+                  />
+                </figure>
+                <div class="card-body">
+                  <h5 x-text="cat.name" class="card-title"></h5>
+                  <p x-text="`$${cat.price}`"></p>
+                  <div class="justify-end card-actions">
+                    <button @click="addToCart(cat)" class="btn btn-primary">
+                      <i class="fas fa-cat"></i> 認養
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <!-- cat end -->
+          </div>
+        </section>
+
+        <section x-data="cartControl" class="px-8 mt-12">
+          <div class="flex items-center">
+            <h2 class="text-3xl font-bold">認養清單</h2>
+            <i class="fas fa-shopping-cart text-xl relative">
+              <span
+                x-text="$store.catData.cartList.length"
+                class="absolute bottom-3 left-3 badge badge-xs badge-secondary"
+              ></span>
+            </i>
+          </div>
+
+          <table class="table my-2">
+            <thead>
+              <tr class="text-lg">
+                <th>名字</th>
+                <th>數量</th>
+                <th>手續費</th>
+                <th>小計</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- item start -->
+              <template x-for="cat in $store.catData.cartList">
+                <tr class="text-lg">
+                  <td x-text="cat.name"></td>
+                  <td>
+                    <input
+                      type="number"
+                      x-model="cat.count"
+                      min="1"
+                      class="input input-bordered"
+                    />
+                  </td>
+                  <td x-text="cat.price"></td>
+                  <td x-text="calcSubTotal(cat)"></td>
+                  <td>
+                    <button
+                      @click="removeProduct(cat)"
+                      class="btn btn-xs btn-primary"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </template>
+              <!-- item end -->
+            </tbody>
+            <tfoot class="text-lg bg-slate-100">
+              <tr>
+                <td colspan="2"></td>
+                <td class="text-gray-700">總價</td>
+                <td x-text="calcTotal" class="text-gray-700 font-bold"></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+          <button @click="resetCart" class="btn btn-primary">
+            <i class="fas fa-baby-carriage"></i> 清空認養清單
+          </button>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
