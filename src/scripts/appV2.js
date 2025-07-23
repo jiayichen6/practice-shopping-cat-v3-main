@@ -8,7 +8,6 @@ const productListControl = () => {
       try {
         const resp = await axios.get(url)
         this.$store.catData.productList = resp.data
-        console.log(1111)
       } catch (err) {
         console.log(err)
       }
@@ -28,14 +27,12 @@ const productListControl = () => {
 
       try {
         if (index !== -1) {
-          axios.patch(`${url}/${cat.id}`, { count: cartList[index].count })
+          await axios.patch(`${url}/${cat.id}`, {
+            count: cartList[index].count,
+          })
         } else {
-          axios.post(url, { ...cat, count: 1 })
+          await axios.post(url, { ...cat, count: 1 })
         }
-        console.log(
-          "更新完，本地資料如下",
-          JSON.stringify(this.$store.catData.cartList)
-        )
       } catch (err) {
         console.log("更新購物車失敗", err)
       }
@@ -51,7 +48,6 @@ const cartControl = () => {
       try {
         const resp = await axios.get(this.url)
         this.$store.catData.cartList = resp.data
-        console.log(1234)
       } catch (err) {
         console.log("購物車讀取失敗：", err)
       }
@@ -68,6 +64,17 @@ const cartControl = () => {
       return Math.round(total * 100) / 100
     },
 
+    async changeCount(cat) {
+      console.log(cat)
+
+      try {
+        const resp = await axios.patch(`${this.url}/${cat.id}`, cat)
+        console.log(resp)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
     async removeProduct(cat) {
       const cartList = this.$store.catData.cartList
       const index = cartList.findIndex((c) => c.id === cat.id)
@@ -82,8 +89,6 @@ const cartControl = () => {
 
     async resetCart() {
       const cartId = this.$store.catData.cartList.map((c) => c.id)
-      console.log(cartId)
-
       this.$store.catData.cartList = []
 
       try {

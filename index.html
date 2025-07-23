@@ -44,7 +44,7 @@
             class="grid grid-cols-1 gap-3 my-2 lg:grid-cols-6 sm:grid-cols-3"
           >
             <!-- cat start -->
-            <template x-for="cat in $store.catData.productList">
+            <template x-for="cat in $store.catData.productList" :key="cat.id">
               <div class="shadow card bg-base-100">
                 <figure>
                   <img
@@ -101,13 +101,14 @@
             </thead>
             <tbody>
               <!-- item start -->
-              <template x-for="cat in $store.catData.cartList">
+              <template x-for="cat in $store.catData.cartList" :key="cat.id">
                 <tr class="text-lg">
                   <td x-text="cat.name"></td>
                   <td>
                     <input
-                      type="number"
+                      @input="changeCount(cat)"
                       x-model="cat.count"
+                      type="number"
                       min="1"
                       class="input input-bordered"
                     />
